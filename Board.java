@@ -73,7 +73,7 @@ public class Board {
     public void set(int[]coordinates, String value){
         GRID[coordinates[0]][coordinates[1]] = value;
     }
-// get(coordinates) permettant de recuperer le contenu du plateau à une position donnée. 
+// get(coordinates) permettant de recuperer le contenu du plateau à une position donnée sous la forme d'une chaien de caractere . 
     public String get(int[] coordinates){
         return GRID[coordinates[0]][coordinates[1]];
     }
@@ -91,6 +91,11 @@ public class Board {
 
     }
 
+
+     
+}
+
+/*
     public static void main(String[] args){
         int rows = 17;
         int columns = 42;
@@ -102,5 +107,5 @@ public class Board {
 
 
     }
-     
-}
+
+    */

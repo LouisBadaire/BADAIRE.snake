@@ -12,8 +12,8 @@ public class Snake{
         body[0][0] = departX;
         body[0][1] = departY;
         size = 1;
-        int [] direction = {0,1};
-        il_mange = False;
+        direction = new int[]{1, 0}; // direction initiale = droite 
+        il_mange = false;
     }
 
     public void move(){
@@ -29,40 +29,46 @@ public class Snake{
 
         //la size augmente, donc dans la boucle for le i parcourera un segment de plus
         //ca créera le segment automatiquement
-        if (il_mange == True && size <= tailleMax){
-            size += 1;
-            il_mange = False;
-        }
 
-        // changer la direction du serpent
-        public void changeDirection(int[] newdirection){
-            if (newDirection[0] != -direction[0] && newdirection[1] != -direction[1]){
-                direction = newDirection;
+
+        if (il_mange == true){
+            if (size < body.length){
+                size +=1; 
             }
+            il_mange = false;
         }
-
-        public void grandir(){
-            il_mange = true;
-        }
-
-        // on cherche à obtenir la position de la tete :
-        public int[] getTete(){
-            return body[0];
-        }
-
-        // on cherche à obtenir toutes les positions de chaque segment du corps :
-        public int[][] getCorps(){
-            return body;
-            }
-        }
-
-        public int getSize(){
-            return size;
-        }
-
-
 
     }
+
+    // changer la direction du serpent
+    public void changeDirection(int[] newdirection){
+        if (newdirection[0] != -direction[0] && newdirection[1] != -direction[1]){
+            direction = newdirection;
+        }
+    }
+
+    public void grandir(){
+        il_mange = true;
+    }
+
+    // on cherche à obtenir la position de la tete :
+    public int[] getTete(){
+        return body[0];
+    }
+
+    // on cherche à obtenir toutes les positions de chaque segment du corps :
+    public int[][] getCorps(){
+        return body;
+    }
+    
+
+    public int getSize(){
+        return size;
+    }
+
+
+
+    
 
 
 }
