@@ -17,27 +17,45 @@ public class Game{
 
         while (enMarche == true){
             board.draw(); // on affiche la grille 
-            board.set(snake.getTete(), "t");
             System.out.println("Entrez la direction (q = gauche, x = bas, d = droite, e = haut)");
             String input = scanner.nextLine();
 
+
             // on change la direction en fonction de la direction entrée par l'utilisateur : 
-            if (input.equals("q")){
-                snake.changeDirection(new int[]{-1,0});
+            int[] newdirection = {0,0};
+            if (input.equals("e")){
+                newdirection = new int[] {-1,0};
             }
-            else if (input.equals("d")){
-                snake.changeDirection(new int[]{1,0});
-            }
-
-            else if (input.equals("e")){
-                snake.changeDirection(new int[]{0,1});
-            }
-
             else if (input.equals("x")){
-                snake.changeDirection(new int[]{0,-1});
+                newdirection = new int[] {1,0};
             }
+
+            else if (input.equals("d")){
+                newdirection = new int[] {0,1};
+            }
+
+            else if (input.equals("q")){
+                newdirection = new int[] {0,-1};
+            }
+
+            snake.changeDirection(newdirection);
             snake.move(); // on fait deplacer le serpent maitneant qu'on sait ou il va 
 
+            board.set(snake.getTete(), "t");
+            
+            int[] Delete = snake.getDelete();
+
+
+            int[][] positionQueue = snake.getCorps();
+
+            for (int i = 1 ; i < positionQueue.length; i++)  { 
+                board.set(positionQueue[i], "s");
+            }
+
+            if(Delete[0]!=-1 || Delete[1]!=-1){
+                board.set(Delete,"v");
+            }
+            
             // on initialse la position de la tete : 
             int[] positionTete = snake.getTete();
             if (board.get(positionTete) == "f"){

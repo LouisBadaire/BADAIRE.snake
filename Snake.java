@@ -5,6 +5,8 @@ public class Snake{
     private int size; 
     private int [] direction; 
     private boolean il_mange;
+    private int[] delete;
+    
 
     public Snake(int departX, int departY, int tailleMax){ 
         // on initialise la position du serpent, grace à sa tête comme point de départ 
@@ -14,11 +16,16 @@ public class Snake{
         size = 1;
         direction = new int[]{1, 0}; // direction initiale = droite 
         il_mange = false;
+        delete = new int[]{-1,-1};
+
     }
 
     public void move(){
         // on déplace les segments du corps de la queue vers la tete
-        for (int i = size; i > 0; i--){
+        delete[0] = body[size-1][0];
+        delete[1] = body[size-1][1];
+
+        for (int i = size-1; i > 0; i--){
             body[i][0] = body[i-1][0];
             body[i][1] = body[i-1][1];
         }
@@ -56,9 +63,17 @@ public class Snake{
         return body[0];
     }
 
+    public int[] getDelete(){
+        return delete;
+    }
+
     // on cherche à obtenir toutes les positions de chaque segment du corps :
     public int[][] getCorps(){
-        return body;
+        int[][] res = new int[size][2];
+        for(int i = 1; i<size;i++){
+            res[i]=body[i];
+        }
+        return res;
     }
     
 
