@@ -16,8 +16,14 @@ public class Game{
         Scanner scanner = new Scanner(System.in);
 
         while (enMarche == true){
+            System.out.println("\033c");
+
+
+            // on initialse la position de la tete : 
+
             board.draw(); // on affiche la grille 
             System.out.println("Entrez la direction (q = gauche, x = bas, d = droite, e = haut)");
+
             String input = scanner.nextLine();
 
 
@@ -41,6 +47,20 @@ public class Game{
             snake.changeDirection(newdirection);
             snake.move(); // on fait deplacer le serpent maitneant qu'on sait ou il va 
 
+
+
+            int[] positionTete = snake.getTete();
+
+            if(GameOver(positionTete) == true){
+                System.out.println("Game Over");
+                enMarche = false;
+            }    
+            if (board.get(positionTete).equals("f")){
+                snake.grandir();
+                board.addFood();
+                board.set(positionTete, "v");
+
+            }
             board.set(snake.getTete(), "t");
             
             int[] Delete = snake.getDelete();
@@ -55,21 +75,7 @@ public class Game{
             if(Delete[0]!=-1 || Delete[1]!=-1){
                 board.set(Delete,"v");
             }
-            
-            // on initialse la position de la tete : 
-            int[] positionTete = snake.getTete();
-            if (board.get(positionTete) == "f"){
-                snake.grandir();
-                board.set(positionTete, "v");
-                board.addFood();
-            }
-
-            if(GameOver(positionTete) == true){
-                System.out.println("Game Over");
-                enMarche = false;
-            }           
-            
-
+       
         }
     }
     public boolean GameOver (int[] positionTete){
