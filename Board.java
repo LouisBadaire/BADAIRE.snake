@@ -83,29 +83,28 @@ public class Board {
         int maxRow = rows -2;
         int minCol = 1;
         int maxCol = columns -2;
-        int randomRow = minRow + (int)(Math.random() * ((maxRow - minRow) + 1));
-        int randomCol = minCol + (int)(Math.random() * ((maxCol - minCol) + 1));
+        int [] coordinates; 
+// j'avais un probleme, des fois plus de pommes ne s'affichait sur la tableau, 'ne ai déduit qu'une pomme était parfois générée sur un segment du seprent ce qui rovoquait la disparition de la pomme le mouement du serpend suivant. et comme la pomme n'etait pas mangé, ca n'en replacait pas de nouvelle. 
+        do {
+            int randomRow = minRow + (int)(Math.random() * ((maxRow - minRow) + 1));
+            int randomCol = minCol + (int)(Math.random() * ((maxCol - minCol) + 1));
+            coordinates = new int[] {randomRow, randomCol};
+        }
+        while (!get(coordinates).equals("v"));
         
-        int[] coordinates = {randomRow,randomCol};
         set(coordinates, "f");  
 
+    }
+
+    public int getRows(){
+        return rows; 
+    }
+
+    public int getColumns(){
+        return columns;
     }
 
 
      
 }
 
-/*
-    public static void main(String[] args){
-        int rows = 17;
-        int columns = 42;
-        Board B1 = new Board(rows, columns);
-
-        
-        B1.addFood();
-        B1.draw();
-
-
-    }
-
-    */

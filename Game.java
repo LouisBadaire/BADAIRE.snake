@@ -20,7 +20,7 @@ public class Game{
 
 
             // on initialse la position de la tete : 
-
+            System.out.println("Snake                           score : " + snake.getSize());
             board.draw(); // on affiche la grille 
             System.out.println("Entrez la direction (q = gauche, x = bas, d = droite, e = haut)");
 
@@ -71,6 +71,7 @@ public class Game{
             for (int i = 1 ; i < positionQueue.length; i++)  { 
                 board.set(positionQueue[i], "s");
             }
+
 
             if(Delete[0]!=-1 || Delete[1]!=-1){
                 board.set(Delete,"v");

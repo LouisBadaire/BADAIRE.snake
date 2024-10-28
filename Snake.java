@@ -21,9 +21,21 @@ public class Snake{
     }
 
     public void move(){
+
+        if (il_mange) {
+            if (size < body.length) {
+                size += 1; // On agrandit le corps
+                body[size - 1][0] = delete[0]; // On place le nouveau segment à l'ancienne position de la queue
+                body[size - 1][1] = delete[1];
+            }
+            il_mange = false; // Reset de l'état de "manger"
+        }
+
+
         // on déplace les segments du corps de la queue vers la tete
         delete[0] = body[size-1][0];
         delete[1] = body[size-1][1];
+
 
         for (int i = size-1; i > 0; i--){
             body[i][0] = body[i-1][0];
@@ -78,7 +90,7 @@ public class Snake{
     
 
     public int getSize(){
-        return size;
+        return size-1;
     }
 
 
