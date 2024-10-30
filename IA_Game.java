@@ -57,7 +57,7 @@ public class IA_Game {
 
     public int[] nextMove() {
         int[] tete = snake.getTete(); 
-        int[] food = findFood();
+        int[] food = board.findFood();
 
 // j'ai remarqué que lorsque la pomme etait au dessus de la tete du serpent lors du du premier mouvement apres le lancement du jeu, le serpent partait vers le bas et mourrait. pour arreter ca, j'oblige le serpent à partir vers la droite pour son premier mouvement. 
         if (premierMouvement) {
@@ -85,7 +85,7 @@ public class IA_Game {
         }
 
         // la direction préféré mène parfois à un mur ou la queue, on essaie donc d'autre direction. 
-        int[][] otherDirections = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        int[][] otherDirections = {{1, 0},{-1, 0},{0,1},{0,-1}};
         for (int[] direction : otherDirections) {
             int[] newPos = {tete[0] + direction[0], tete[1] + direction[1]};
             if (isSafePosition(newPos)) {
@@ -112,21 +112,17 @@ public class IA_Game {
 
     
     }
-    private int[] findFood() {
-        for (int i = 0; i < board.getRows(); i++) {
-            for (int j = 0; j < board.getColumns(); j++) {
-                if (board.get(new int[]{i, j}).equals("f")) {
-                    return new int[]{i, j};
-                }
-            }
-        }
-        return new int[]{-1, -1};
+
+    public void setPremierMouvement(boolean value){
+        this.premierMouvement = value ;
     }
+
 
     public boolean GameOver(int[] positionTete) {
         String positionActuelle = board.get(positionTete);
         return positionActuelle.equals("w") || positionActuelle.equals("s");
     }
+
 
     public static void main(String[] args) {
         int rows = 17;

@@ -14,54 +14,60 @@ public class Board {
     // attributs 
     private int rows; 
     private int columns; 
-    private String[][] GRID; 
+    private String[][] grid; 
 
     //constructeur 
     public Board (int Rows, int Columns){
         this.rows = Rows; 
         this.columns = Columns;
-        this.GRID = new String[Rows][Columns];
+        this.grid = new String[Rows][Columns];
         creationGrid();
     }
 
     public void creationGrid(){
         for (int j = 0; j < columns; j++){
-            GRID[0][j] = "w";
+            grid[0][j] = "w";
         }
         for(int i = 1; i<rows-1; i++){
             for (int j = 0; j < columns; j++){
                 if (j == 0 || j == columns-1){
-                    GRID[i][j] = "w";
+                    grid[i][j] = "w";
                 }
                 else{
-                    GRID[i][j] = "v";
+                    grid[i][j] = "v";
                 }
             }
         }
         for (int j = 0; j < columns; j++){
-            GRID[rows-1][j] = "w";
+            grid[rows-1][j] = "w";
         }
     }
 
     public void draw(){
         for (int i = 0; i < rows; i++){
             for (int j = 0; j < columns; j++){
-                if (GRID[i][j].equals("w")){
+                if (grid[i][j].equals("w")){
                     System.out.print("*");
                 }
-                if (GRID[i][j].equals("v")){
+                if (grid[i][j].equals("v")){
                     System.out.print(" ");
                 }
-                if (GRID[i][j].equals("f")){
+                if (grid[i][j].equals("f")){
                     System.out.print("X");
                 }
 
-                if (GRID[i][j].equals("s")){
+                if (grid[i][j].equals("s")){
                     System.out.print("O");
                 }
 
-                if (GRID[i][j].equals("t")){
+                if (grid[i][j].equals("t")){
                     System.out.print("@");
+                }
+                if (grid[i][j].equals("T")){
+                    System.out.print("ç");
+                }
+                if (grid[i][j].equals("S")){
+                    System.out.print("ù");
                 }
             }
             System.out.println();
@@ -71,11 +77,11 @@ public class Board {
 
 
     public void set(int[]coordinates, String value){
-        GRID[coordinates[0]][coordinates[1]] = value;
+        grid[coordinates[0]][coordinates[1]] = value;
     }
 // get(coordinates) permettant de recuperer le contenu du plateau à une position donnée sous la forme d'une chaien de caractere . 
     public String get(int[] coordinates){
-        return GRID[coordinates[0]][coordinates[1]];
+        return grid[coordinates[0]][coordinates[1]];
     }
 
     public void addFood(){
@@ -104,7 +110,29 @@ public class Board {
         return columns;
     }
 
+    public int[] findFood() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (get(new int[]{i, j}).equals("f")) { 
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return new int[]{-1, -1}; // Renvoie -1, -1 si aucune nourriture n'est trouvée
+    }
 
-     
+
+    public boolean foodHere(int[] position) {
+        int x = position[0];
+        int y = position[1];
+        
+        // On vérifie que la position est dans les limites de la grille
+        if (x >= 0 && x < grid.length && y >= 0 && y < grid[0].length) {
+            return grid[x][y].equals("f"); // Retourne vrai si la cellule contient de la nourriture
+        } else {
+            return false; // Position hors limites
+        }
+    } 
+
 }
 
