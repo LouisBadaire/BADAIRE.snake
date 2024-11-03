@@ -15,13 +15,13 @@ public class TwoPlayerGame {
         iaGame = new IA_Game(board, aiSnake);
         playerTurn = true; // L'utilisateur commence
         board.addFood(); // Ajouter la première nourriture sur le plateau
-        scanner = new Scanner(System.in); // Scanner pour lire les commandes du joueur
+        scanner = new Scanner(System.in); 
     }
 
     public void start() {
         while (true) {
-            System.out.println("\033c"); // Efface la console
-            board.draw(); // Affiche le plateau de jeu
+            System.out.println("\033c"); // clear le terminal 
+            board.draw(); // Affiche le plateau 
 
             if (playerTurn) {
                 // Tour du joueur
@@ -29,7 +29,7 @@ public class TwoPlayerGame {
                 String input = scanner.nextLine();
                 int[] newDirection = {0, 0};
 
-                // Lecture des touches pour définir la direction du serpent
+                // on défini la direction su serpent
                 if (input.equals("e")) newDirection = new int[]{-1, 0}; // Haut
                 else if (input.equals("x")) newDirection = new int[]{1, 0}; // Bas
                 else if (input.equals("d")) newDirection = new int[]{0, 1}; // Droite
@@ -46,7 +46,7 @@ public class TwoPlayerGame {
                     break;
                 }
 
-                // Vérifie si le joueur a mangé de la nourriture
+                // on Vérifie si le joueur a mangé de la nourriture
                 if (board.foodHere(playerSnake.getTete())) {
                     playerSnake.grandir();
                     board.addFood(); // Ajoute une nouvelle nourriture
@@ -72,7 +72,7 @@ public class TwoPlayerGame {
             playerTurn = !playerTurn; // Alterne les tours
 
             try {
-                Thread.sleep(100); // Pause pour ralentir le jeu
+                Thread.sleep(100); 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -115,7 +115,6 @@ public class TwoPlayerGame {
     }
 
     public static void main(String[] args) {
-        // Initialisation du mode 2 joueurs
         TwoPlayerGame game = new TwoPlayerGame(17, 42, 8, 20, 12, 10, 100);
         game.start(); // Démarre le jeu
     }
